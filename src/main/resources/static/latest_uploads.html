@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Latest uploads</title>
+		
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+			
+			a {
+				text-decoration: none;
+				display: block;
+			}
+			
+			#fileViewContainer, #textViewContainer {
+				background-color: #eee; 
+				padding: 16px; 
+				display: none;
+			}
+			
+			#fileView, #textView {
+				background-color: #fff; 
+				padding: 8px; 
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id="fileViewContainer">
+			<h3>Last uploaded file</h3>
+			<a href="#" target="_blank" id="fileView"></a>
+		</div>
+		
+		<div id="textViewContainer">
+			<h3>Last uploaded text</h3>
+			<p id="textView"></p>
+		</div>
+	
+		<script>
+			var xhr1 = new XMLHttpRequest(); 
+		    xhr1.open("GET", "/file");
+		    xhr1.onload = function() {
+		        console.log(xhr1.responseText);
+		        if(xhr1.status == 200) {
+		        	var fileView = document.querySelector("#fileView"); 
+		        	fileView.href = "http://localhost:8080/downloadFile/" + xhr1.responseText; 
+		        	fileView.innerHTML = "http://localhost:8080/downloadFile/" + xhr1.responseText; 
+		        	document.querySelector("#fileViewContainer").style.display = "block"; 
+		        } else {
+					console.log("An error occurred!"); 
+		        }
+		    }
+		    xhr1.send();
+		    
+		    var xhr2 = new XMLHttpRequest(); 
+		    xhr2.open("GET", "/text");
+		    xhr2.onload = function() {
+		    	var data = JSON.parse(xhr2.responseText); 
+		        console.log(data.text); 
+		        if(xhr2.status == 200) {
+		        	document.querySelector("#textView").innerHTML = data.text; 
+		        	document.querySelector("#textViewContainer").style.display = "block"; 
+		        } else {
+		        	console.log("An error occurred!"); 
+		        }
+		    }
+		    xhr2.send();
+		</script>
+	</body>
+</html>
