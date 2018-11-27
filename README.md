@@ -17,7 +17,7 @@ stored in MySql Database.
 **1. Clone the repository** 
 
 ```bash
-git clone https://github.com/tundeOlagunju/springBoot.git
+git clone https://github.com/tundeOlagunju/springBootApp.git
 ```
 
 **2. Configure MySQL database**
